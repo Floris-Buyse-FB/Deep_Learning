@@ -27,27 +27,27 @@ relu (rectified linear unit) activation (horizontal line: 0, linear increase to 
 
 - What are the shapes of the hidden layer’s weight matrix Wh and bias vector bh?
     - Wh: (10, 50)
-    - bh: (,50)
+    - bh: (50)
 
 - What are the shapes of the output layer’s weight matrix Wo and bias vector bo?
     - Wo: (50, 3)
-    - bo: (,3)
+    - bo: (3)
 
 - What is the shape of the network’s output matrix Y?
     - (n_instances, 3)
 
 - Write the equation that computes the network’s output matrix Y as a function of X, Wh, bh, Wo and bo.
-    - Y = (ReLu(XWh + bh)) x Wo + bo
+    - Y = ReLu((ReLu(XWh + bh)) x Wo + bo)
 ```
 
 ## (Exercise 7 from the book) How many neurons do you need in the output layer if you want to classify email into spam or ham
 
 ```Text
 - Amount of neurons:
-    - 2
+    - 1
 
 - What activation function should you use in the output layer:
-    - binary cross entropy
+    - sigmoid activation
 ```
 
 If instead you want to tackle MNIST:
@@ -57,7 +57,7 @@ If instead you want to tackle MNIST:
     - 10
 
 - which activation function should you use:
-    - categorical cross entropy
+    - softmax activation
 ```
 
 What about for getting your network to predict housing prices, as in Chapter 2:

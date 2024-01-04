@@ -14,7 +14,7 @@
   - tijdsreeksen
 
 - 2 problemen:
-  - onstabiele gradient
+  - `Unstable gradients` -> solved with `Recurrent Dropout` and `Recurrent Layer Normalization`
   - beperkt geheugen over lange termijn (moeilijk om iets te onthouden over lange termijn)
 
 ### 15.1 Recurrente laag
