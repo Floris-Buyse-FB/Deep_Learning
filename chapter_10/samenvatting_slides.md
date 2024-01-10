@@ -158,6 +158,9 @@ Other activation functions:
 
 ![Regression MLP](../images/mlp_overview.png)
 
+- Typically MSE as loss function but MAE is preferred if there are many outliers.
+- Huber Loss is a combination of MSE and MAE, it is quadratic for small erros and linear for large erros.
+
 ### 10.1.6 Classification MLPs
 
 ![Classification MLP](../images/mlp_classification_overview.png)
@@ -196,6 +199,10 @@ $BCE(y, \hat{y}) = -(ylog(\hat{y}) + (1 - y)log(1 - \hat{y}))$
 With:
 
 - $y$ = true label (0 or 1)
+
+=> can be written as:
+
+$BCE(y, \hat{y}) = \begin{cases} -log(\hat{y}) & \text{if } y = 1 \\ -log(1 - \hat{y}) & \text{if } y = 0 \end{cases}$
 
 ##### Categorical Cross-Entropy
 
