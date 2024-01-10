@@ -136,9 +136,9 @@ def csv_reader_dataset(filepaths, repeat=1, n_readers=5, n_read_threads=None,
 ### 13.3.1 Normalization Layer
 
 ```Python
-normalization = keras.layers.Normalization()
+normalization = tf.keras.layers.Normalization()
 
-model = keras.Sequential([
+model = tf.keras.Sequential([
     normalization,
     keras.layers.Dense(30),
     keras.layers.Dense(1)
@@ -160,7 +160,7 @@ Where:
 `Interaction with tf.data.Dataset`
 
 ```Python
-normalization = keras.layers.Normalization()
+normalization = tf.keras.layers.Normalization()
 normalization.adapt(X_train)
 
 dataset = dataset.map(lambda x, y: (normalization(x), y))
@@ -174,17 +174,18 @@ Note: here you should call cache() after map() if dataset fits in memory
 - Provide `bin_boundaries` or let adapt() method find them
 - No adapt() needed if you provide bin_boundaries
 - `num_bins` specifies the number of bins to use
+- Note: bin_boundaries -> left inclusive, right exclusive (here: 18 yields 1, 50 yields 2)
 
 ```Python
-age = tf.constant([[11.], [22.], [33.], [92.]])
-discretization = keras.layers.Discretization(bin_boundaries=[18., 50.])
+age = tf.constant([[11.], [22.], [33.], [92.], [18.], [50.]])
+discretization = tf.keras.layers.Discretization(bin_boundaries=[18., 50.])
 
 age_categories = discretization(age)
 
-# yields [[0.], [1.], [1.], [2.]]
+# yields [[0.], [1.], [1.], [2.], [1.], [2.]]
 # with adapt()
 
-discretization2 = keras.layers.Discretization(num_bins=3)
+discretization2 = tf.keras.layers.Discretization(num_bins=3)
 discretization2.adapt(age)
 ```
 

@@ -39,7 +39,8 @@ The problem:
 `When use which activation function?`:
 
 - ReLU is a good default
-- Complex tasks: Swish or Leaky ReLU (if you care about runtime latency)
+- Complex tasks: Swish
+- Runtime latency important: Leaky ReLU
 
 #### 11.1.3 Batch Normalization
 
@@ -56,9 +57,15 @@ The problem:
   - Scale and shift result
   - i.e. lets model learn optimal scale and mean of each of the layer's inputs
 
-`Formulas` 
+`Formulas`
 
-???
+- $\mu_B = \frac{1}{m_B} \sum_{i=1}^{m_B} \mathbf{x}^{(i)}$ -> mean of mini-batch
+- $\sigma_B^2 = \frac{1}{m_B} \sum_{i=1}^{m_B} (\mathbf{x}^{(i)} - \mu_B)^2$ -> variance of mini-batch
+- $\hat{\mathbf{x}}^{(i)} = \frac{\mathbf{x}^{(i)} - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}$ -> zero-centered and normalized input
+  - with $\epsilon$ -> smoothing term (tiny positive number) to avoid division by zero
+- $\mathbf{z}^{(i)} = \gamma \hat{\mathbf{x}}^{(i)} + \beta$ -> scaled and shifted input
+  - with $\gamma$ -> scaling parameter vector (one per input)
+  - with $\beta$ -> shifting parameter vector (one per input)
 
 `BN at Test/Inference Time`
 
@@ -80,10 +87,22 @@ The problem:
 
 `use_bias=False in Dense layers`
 
-- BN layer has its own biases (learnable parameters $\beta$ and $\gamma$) -> no need to add bias term in previous layer
+- use BN before activation function -> BN layer has its own biases (learnable parameters $\beta$ and $\gamma$) -> no need to add bias term in previous layer
+- but you have to manually add activation function after BN layer (not in Dense layer)
+- e.g.
+
+```python
+model = keras.models.Sequential([
+    keras.layers.Flatten(input_shape=[28, 28]),
+    keras.layers.Dense(300, kernel_initializer="he_normal", use_bias=False),
+    keras.layers.BatchNormalization(),
+    keras.layers.Activation("relu"),
+])
+```
 
 `Hyperparameters of BN`
 
+- momentum: decay rate of moving averages (typically close to 1, e.g. 0.9, 0.99, 0.999)
 - axis: which axis to normalize
   - axis=-1: last axis (default)
   - if batchshape = (batch_size, features) -> each feature normalized independently
@@ -145,6 +164,9 @@ The problem:
 - Advanced implementation:
 
 ```python
+# suppose you have a model called model
+# with Dropout layers and you want to use MC Dropout
+
 class MCDropout(keras.layers.Dropout):
     def call(self, inputs):
         return super().call(inputs, training=True)
@@ -154,6 +176,8 @@ mc_model = tf.keras.Sequential([
     MCDropout(layer.rate) if isinstance(layer, Dropout) else layer
     for layer in model.layers
 ])
+
+mc_model.set_weights(model.get_weights())
 ```
 
 ## 11.6 Summary + practical guidelines
