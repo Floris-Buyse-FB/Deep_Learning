@@ -35,10 +35,15 @@
 
 <br>
 
-- In practice: `multiple filters` per layer
+- In practice: `multiple filters` per layer (zie <https://www.youtube.com/watch?v=KTB_OFoAQcc&list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&index=6>)
 - Output of each filter = feature map -> conv layer outputs stack of feature maps (3D tensor)
 - One neuron per pixel in feature map
 - Neuron's receptive field `extends across all feature maps` of previous layer
+- e.g.
+  - 6x6x3 image (widht, height, channels)
+  - 3x3x3 filter (width, height, channels)
+  - 2nd 3x3x3 filter
+  - output => 4x4x2 (n-f+1, n-f+1, # filters)
 
 ### 14.2.3 Implementing Convolutional Layers with Keras
 
@@ -82,6 +87,11 @@ tf.keras.layers.Conv2D(filters=32, kernel_size=7)
 - Higher stride -> smaller output
 - Stride = 2 -> output half size of input
 - padding -> floor((n + 2p - f / s) + 1) x floor((n + 2p - f / s) + 1)
+
+`Weights of Conv2D`:
+
+- kernel shape = (kernel_width, kernel_height, input_channels, output_channels)
+- bias shape = (output_channels,)
 
 `Activation`:
 

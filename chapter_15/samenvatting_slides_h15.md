@@ -238,7 +238,7 @@ Batch Normalization -> not helpfull -> RNNs have only one input at a time
   - $g$ -> tanh activation
 
 - Each time step:
-  - $h_{t-1} and $c_{t-1} extracted from the state
+  - $h_{t-1}$ and $c_{t-1}$ extracted from the state
   - 4 layers applied to concatenation of $x_{(t)}$ and $h_{(t-1)}$
     - to yield $f_{(t)}$, $i_{(t)}$, $o_{(t)}$ and $g_{(t)}$
     - each of size (batch_size, units)
