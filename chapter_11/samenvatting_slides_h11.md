@@ -103,11 +103,11 @@ model = keras.models.Sequential([
 `Hyperparameters of BN`
 
 - momentum: decay rate of moving averages (typically close to 1, e.g. 0.9, 0.99, 0.999)
-- axis: which axis to normalize
+- axis: which axis to normalize (i.e. which axis to use to calculate mean and variance)
   - axis=-1: last axis (default)
-  - if batchshape = (batch_size, features) -> each feature normalized independently
-  - if batchshape = (batch_size, height, width) -> by default width means and variances
-    - Normalize each pixel independently -> axis=[1,2]
+  - if batchshape = (batch_size, features) i.e. 2D -> each feature normalized independently
+  - if batchshape = (batch_size, height, width) i.e. 3D -> by default mean and variance calculated over width
+    - Normalize each pixel independently i.e. over height and width -> axis=[1,2]
 
 #### 11.1.4 Gradient Clipping
 

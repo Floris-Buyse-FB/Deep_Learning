@@ -100,8 +100,11 @@ kunnen onderscheiden + voorbeeld + leg kort uit hoe het werkt
 
 - Metrieken (niet gebonden aan alleen tijdsreeksen)
   - Mean Squared Error (MSE)
+    - formula: $\frac{1}{m} \sum_{i=1}^{m} (y_{i} - \hat{y}_{i})^{2}$
   - Mean Absolute Error (MAE)
+    - formula: $\frac{1}{m} \sum_{i=1}^{m} |y_{i} - \hat{y}_{i}|$
   - Mean Absolute Percentage Error (MAPE) -> easier to interpret than MAE
+    - formula: $\frac{100}{m} \sum_{i=1}^{m} \frac{|y_{i} - \hat{y}_{i}|}{y_{i}}$
 
 ### 15.3.2 Data voorbereiden
 
@@ -148,17 +151,31 @@ tf.keras.Sequential([tf.keras.layers.SimpleRNN(units=1, input_shape=(None, num_f
 
 - `return_sequences=True` => output van elke tijdstap
 - activation = tanh by default
-- num_features => bij voorspellen hoeveel mensen bus zullen nemen: 1
+- input_matrix = (batch_size, timesteps, num_features)
+- num_features => bij univariate tijdsreeksen = 1 (vb. hoeveel mensen nemen de bus)
 - None => lengte van de sequentie moet willekeurige lengte kunnen hebben
 - => Slecht model: 3 parameters is te weinig, default activatie is tanh (-1, 1) maar onze data ligt tussen (0, 1.4)
 - Oplossing => meer units (vb. 32) => Dense laag nodig die 32 omzet naar 1 (dus Denselaag met 1 neuron)
 
 ```Python
 tf.keras.Sequential([
-    tf.keras.layers.SimpleRNN(units=32, return_sequences=True, input_shape=[None, 5]),
-    tf.keras.layers.Dense(units=14)
+    tf.keras.layers.SimpleRNN(units=32, return_sequences=True, input_shape=[None, 1]), # params = 32x32 + 32x1 + 32 = 1088
+    tf.keras.layers.Dense(units=1)
 ])
 ```
+
+Parameter calculation
+
+RNN: (units \* units) + (units \* num_features) + (1 \* units)
+
+- units \* units = `recurrent_weights`
+- units \* features = `input_weights`
+- 1 \* units = `bias`
+
+Dense: (input_size \* units) + (1 \* units)
+
+- input_size \* units = `input_weights`
+- 1\* units = `bias`
 
 `TimeDistributed layer`
 
