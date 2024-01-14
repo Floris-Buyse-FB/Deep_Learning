@@ -150,7 +150,7 @@ model = keras.models.Sequential([
 #### 11.5.2 Dropout
 
 - Simple: at every training step, every neuron (including input neurons, but always excluding output neurons) has a probability p of being temporarily "dropped out" (meaning it will be entirely ignored during this training step, but it may be active during the next step)
-- Typically p = between 10% and 50% 
+- Typically p = between 10% and 50%
 - When overfitting -> increase dropout rate and vice versa
 - To check for overfitting -> check both training loss and validation loss without dropout
 
