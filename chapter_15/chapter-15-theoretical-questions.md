@@ -80,15 +80,15 @@ layer = tf.keras.layers.SimpleRNN(32, return_sequences=True, input_shape=[None, 
 ![Alt text](./images/google_stock_theoretical_questions.png)
 
 - Which column(s) are you going to drop?
-  - Open, High, Low, Volume
+  - Date
 - Which column(s) are you going to use as input features?
-  - Date, Close
+  - Open, high, low, volume
 - Is this a univariate or a multivariate timeseries?
   - Multivariate
 - If we only want to predict the Close price at the end, you should use a:
   - Sequence-to-vector network
 - If we only want to predict the Close price, can we use a layer having multiple recurrent neurons, or should I use only 1 recurrent neuron because we only have 1 output value?
-  - We can use layer with multiple recurrent neurons if we want to predict for x amount of days in the future, not just the next day (e.g. 5 neurons for 5 amount of days in the future)
+  - For predicting a single value (e.g., next day's Close price), it's technically possible to use multiple neurons in the output layer, but it's not common. Standard practice is to use one neuron for efficiency.
 - In the book, the following equations are shown to calculate the output values of a layer recurrent neurons for all instances in a pass $\hat{Y}_{(t)} = \phi(X_{(t)} \cdot W_{x} + \hat{Y}_{(t-1)} \cdot W_{\hat{y}} + b)$, suppose batch_size = 64
   - $X_{(t)}$ = Input batch at time step t, shape = (64, n_timesteps, n_features)
   - $\hat{Y}_{(t-1)}$ = Ouput of step t-1, shape = (64, n_timesteps, n_neurons)
