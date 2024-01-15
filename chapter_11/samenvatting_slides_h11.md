@@ -182,7 +182,11 @@ mc_model.set_weights(model.get_weights())
 
 ## 11.6 Summary + practical guidelines
 
+`Default DNN Network`
+
 ![Practical guidelines](../images/11_6_summary_1.png)
+
+`Configuration of Self-Normalizing Network`
 
 ![Practical guidelines](../images/11_6_summary_2.png)
 

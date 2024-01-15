@@ -111,7 +111,7 @@ Algorithm to train MLP = `Backpropagation`:
 - Minibatch passed to input layer -> first hidden layer
 - Each layer computes weighted sum of inputs and applies activation function
 - Output of last layer = $\hat{y}$ = prediction of network for input.
-- Intermidiate results stored for backwars pass.
+- Intermidiate results stored for backwards pass.
 
 #### Backward Pass
 

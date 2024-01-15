@@ -30,7 +30,7 @@ Encoder-decoder RNNs take the whole sentence into account. Plain s-t-s RNNs do w
 - Masked Self-attention: (attention in decoder) self-attention where the inputs are shifted 1 position so that the decoder can't look into the future
 - Cross-attention: (attention in decoder) where the encoder states (V) are combined with the decoders Q and K
 
-## 7. Consider dot-product attention mechanism. For simplicity, we don’t con-sider a possible scaling factor
+## 7. Consider dot-product attention mechanism. For simplicity, we don’t consider a possible scaling factor
 
 Suppose we have a sequence of length 3 andthat the embedding dimension is 4. The embeddings are:
 

@@ -193,6 +193,7 @@ discretization2.adapt(age)
 
 - `tf.keras.layers.CategoryEncoding()`
 - `num_tokens` specifies the number of categories
+- Same as `tf.keras.utils.to_categorical(y, num_tokens)`
 
 ### 13.3.4 StringLookup
 

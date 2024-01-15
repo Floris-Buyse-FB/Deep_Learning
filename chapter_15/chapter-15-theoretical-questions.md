@@ -35,6 +35,7 @@ Image captioning
 
 - RNN or Conv1D with kernelsize 1 with each frame of the video as a timestep (if we don't take sound into account)
   - then have a Dense layer as output with 1 neuron
+- 3D CNN
 
 ## 5. How do we create train/val/test sets for time series data? Explain the difference with a "standard" train/val/test split
 
@@ -44,9 +45,9 @@ Image captioning
 
 - Normalization across the feature dimension
 - Layer norm learns scale and offset per input feature
-- Offset and scale
-- Batch norm normalizes per batch, Layer norm per input feature
-- Normalization layer normalizes all data before training, Layer Norm does it per layer
+- Offset and scale (Beta and Gamma)
+- Batch norm normalizes across batchdimension, Layer norm per input feature
+- Normalization layer normalizes all data before training, Layer Norm does it per layer during training + parameters are learned during training
 
 ## 7. Answer following questions about code below
 
@@ -72,7 +73,7 @@ layer = tf.keras.layers.SimpleRNN(32, return_sequences=True, input_shape=[None, 
 
 - Conv1D Layers
 - causal padding
-- Works the same as "same" padding but only adds padding to the left
+- "same" padding adds zeros to left and right, causal only adds zeros to the left
 - It does this to prevent the model from "looking in the future"
 
 ## 9. Suppose we want to predict the Google "Close" stock price for the next day using the following data
@@ -82,7 +83,7 @@ layer = tf.keras.layers.SimpleRNN(32, return_sequences=True, input_shape=[None, 
 - Which column(s) are you going to drop?
   - Date
 - Which column(s) are you going to use as input features?
-  - Open, high, low, volume
+  - Open, high, low, volume, close? (Zoals bij jena_climate data, wordt temperatuur zowel als label en als input gebruikt)
 - Is this a univariate or a multivariate timeseries?
   - Multivariate
 - If we only want to predict the Close price at the end, you should use a:
@@ -102,6 +103,13 @@ layer = tf.keras.layers.SimpleRNN(32, return_sequences=True, input_shape=[None, 
 
 - h0, h1, etc... -> hidden state vectors
 - y0, y1, etc... -> outputs calculated with the $W_{\hat{y}}$
+
+GPT:
+
+- Hidden states:
+  - These are internal representations that capture the information the model has learned up to the current time step. Each time step's hidden state is influenced by the input at that time step and the previous hidden state
+- Outputs:
+  - These are the actual predictions or outputs produced by the model at each time step. The outputs are often calculated using the hidden state at that time step ($h_1$) and a weight matrix ($W\hat{y}$)
 
 ## 11. In the book they give the example of trying to predict the occupancy ontrain and/or bus for the next day based on data from the past 8 weeks (56days). They use the following features
 
