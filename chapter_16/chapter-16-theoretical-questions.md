@@ -91,7 +91,7 @@ Assume
 - What is the purpose of the different heads?
   - finding different patterns / relationships for the sequence in each head
 - Why do we use a masked multi-head attention matrix on the decoder side?
-  - because we don't want to have the encoder look into the future, so we add a mask
+  - because we don't want to have the decoder look into the future, so we add a mask
 - Why do they use Outputs(shifted right)at the decoder side?
   - for teacher forcing, that way the model can see what the correct target was after having predicted it which speeds up training
 - Now it says Layer 1 to 6. Is that always the case?
@@ -120,7 +120,7 @@ Assume
   - yes
 - Why is it important that the output from multi-head attention has the same shape as the input?
   - Consistent shapes across layers ensure smooth information flow through multiple blocks, aiding effective learning of hierarchical patterns.
-- At inference time, we want to translate the sentence ‘i love footballvery much’ to ‘amo mucho el futbol’
+- At inference time, we want to translate the sentence ‘i love football very much’ to ‘amo mucho el futbol’
   - How often is the encoder executed? 1
   - How often is the decoder executed? You may assume that the translation produced by the decoder is correct: 1
 - Feed Forward consists of 2 Dense Layers. Does the number of units in both Dense Layers matter? Can you choose this freely?
