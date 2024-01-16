@@ -132,6 +132,7 @@ Here:
   - All elements in sequence treated in parallel -> no notion of order => `positional encoding` added to input embeddings
     - Dense vector -> encodes position of each element in the sequence
     - Use Embedding layer -> encode all positions from zero to max_sequence_length (in paper fixed positional encoding with sine and cosine functions)
+      - input_dim=max_sequence_length (instead of n_tokens)
 
 ## 16.4.1 Multi-head attention
 
@@ -165,7 +166,7 @@ Here:
     - softmax applied to each row of this matrix -> each row sum = 1 -> each row = weights (attention scores)
   - Finally: This matrix multiplied by $V$ -> output matrix of shape $(n_q, d_v)$
     - each row = result of weighted sum of rows in $V$
-    - where weights are give the similarity score between each query and each key
+    - where weights are the similarity score between each query and each key
 
 `tf.keras.layers.Attention`:
 

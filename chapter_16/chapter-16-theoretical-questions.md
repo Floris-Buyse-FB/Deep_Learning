@@ -80,7 +80,7 @@ Assume
   - $head_h$: (128, 64)
   - $Z = concat(head_1, ..., head_h)$: (128, 512) (128, 8*64)
   - $MultiHead(Q, K, V) = Z . W^O$: Only the multihead part here -> (128, 64)
-  - $W^O$: (512, 64)
+  - $W^O$: (512, 512)
 - What is the purpose of Attention?
   - capturing contextual information / relationship between elements in sequence: attention allows model to weigh importance of different parts of input sequence
   - long-range dependencies: RNNs struggle with long sequences -> transformers don't because of attention
