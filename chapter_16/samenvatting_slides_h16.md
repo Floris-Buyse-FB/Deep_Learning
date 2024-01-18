@@ -51,6 +51,24 @@
 - Embedding layer sends mask to next layer -> next layer needs `supports_masking=True`
   - SimpleRNN, GRU, LSTM, Dense, ... `DO support` this
   - Convolutional layers `DONT support` this -> need to compute mask manually and pass it to next layer using functional API
+
+```Python
+class MyLayer(layers.Layer):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.embedding = layers.Embedding(input_dim=5000, output_dim=16, mask_zero=True)
+        self.lstm = layers.LSTM(32)
+
+    def call(self, inputs):
+        x = self.embedding(inputs)
+        # Note that you could also prepare a `mask` tensor manually.
+        # It only needs to be a boolean tensor
+        # with the right shape, i.e. (batch_size, timesteps).
+        mask = self.embedding.compute_mask(inputs)
+        output = self.lstm(x, mask=mask)  # The layer will ignore the masked values
+        return output
+```
+
 - If mask propagates to ouput layer -> output is masked
   - masked time steps won't contribute to loss (their loss=0)
 

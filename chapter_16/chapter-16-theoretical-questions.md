@@ -6,7 +6,7 @@ Encoder-decoder RNNs take the whole sentence into account. Plain s-t-s RNNs do w
 
 ## 2. How can you deal with variable-length input sequences? What about variable length output sequences?
 
-- Iput: add padding to the input sequences that are shorter, make sure the RNN ignores the padding tokens or use ragged tensors
+- Input: add padding to the input sequences that are shorter, make sure the RNN ignores the padding tokens or use ragged tensors
 - Output: Make the model output and EOS token
 
 ## 3. What is beam search, and why would you use it?
@@ -28,7 +28,7 @@ Encoder-decoder RNNs take the whole sentence into account. Plain s-t-s RNNs do w
 
 - Self-attention: (attention in encoder) attention where Q, K and V are all the same
 - Masked Self-attention: (attention in decoder) self-attention where the inputs are shifted 1 position so that the decoder can't look into the future
-- Cross-attention: (attention in decoder) where the encoder states (V) are combined with the decoders Q and K
+- Cross-attention: (attention in decoder) where the encoder states (K and V) are combined with the decoders Q
 
 ## 7. Consider dot-product attention mechanism. For simplicity, we don’t consider a possible scaling factor
 
