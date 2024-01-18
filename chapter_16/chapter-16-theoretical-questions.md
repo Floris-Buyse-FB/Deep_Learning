@@ -117,7 +117,7 @@ Assume
 - What is the purpose of the positional embedding?
   - because the sequence is not computed in order (but in parallel) we need to encode the order of the sequence to not lose it
 - Will the positional embedding be different for another sentence consisting of 128 words?
-  - yes
+  - No
 - Why is it important that the output from multi-head attention has the same shape as the input?
   - Consistent shapes across layers ensure smooth information flow through multiple blocks, aiding effective learning of hierarchical patterns.
 - At inference time, we want to translate the sentence ‘i love football very much’ to ‘amo mucho el futbol’
@@ -193,7 +193,7 @@ The = (100%) = 1
   - route 1.2: 0.4 \* 0.05 = 0.02
   - route 1.3: 0.4 \* 0.9 = 0.36 --> you would continue with this one
 - route 2: 1 \* 0.5 = 0.5
-  - route 2.1: 0.5 \* 0.4 = 0.2
+  - route 2.1: 0.5 \* 0.4 = 0.2 --> greedy decoding would've chose this
   - route 2.2: 0.5 \* 0.3 = 0.15 --> you would continue with this one
   - route 2.3: 0.5 \* 0.3 = 0.15 --> you would continue with this one
 - route 3: 1 * 0.1 = 0.1
